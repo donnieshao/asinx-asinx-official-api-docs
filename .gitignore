@@ -1,0 +1,22 @@
+# Intellij
+/.idea/
+/target/
+/logs/
+
+# general
+*~
+*.log
+tmp
+dump
+*.class
+.DS_Store
+
+
+
+*.iml
+
+
+#eclipse
+.project
+.classpath
+.settings/
