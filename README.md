@@ -188,7 +188,7 @@ result decrypted json string
 
 
 
-### 2. Set User profession(***obsolete***,[new kyc](#2.1-kyc-gateway))
+### 2. Set User profession(***obsolete***,[new kyc](#21-kyc-gateway))
 
 **HTTP Request**
 
