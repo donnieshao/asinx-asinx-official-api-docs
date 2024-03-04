@@ -257,8 +257,8 @@ header 'uId' = uid ,value from [user register](#1-user-register) response;
     
     #body
     {
-        "doneViewURL": "100000",
-        "timeoutViewURL": "2000-01-01"
+        "doneViewURL": "https://xxx/donne/view",
+        "timeoutViewURL": "https://www/timeout/view"
     }
 ```
 
