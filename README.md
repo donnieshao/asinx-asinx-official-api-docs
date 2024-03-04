@@ -188,7 +188,7 @@ result decrypted json string
 
 
 
-### 2. Set User profession
+### 2. Set User profession(***obsolete***,[new kyc](#2.1-kyc-gateway))
 
 **HTTP Request**
 
@@ -244,6 +244,44 @@ header 'uId' = uid ,value from [user register](#1-user-register) response;
 
 **HTTP Response**
   Common response
+
+###  2.1 Kyc Gateway
+**HTTP Request**
+
+```javascript
+    # Request
+    
+    POST /user/setProfession
+
+    example: https://test.asinx.io/api-web/kyc/gateway
+    
+    #body
+    {
+        "doneViewURL": "100000",
+        "timeoutViewURL": "2000-01-01"
+    }
+```
+
+***extra request http header***
+
+header 'uId' = uid ,value from [user register](#1-user-register) response;
+
+
+***request fields***
+
+|field | description|required|type|format|
+| ---------- |:-------:|-------|---|---|
+| doneViewURL     | User KYC submission completion prompt page | YES |String||
+| timeoutViewURL     | User KYC submission timeout prompt page |YES|String
+
+**HTTP Response**
+result decrypted json string
+
+```javascript
+{
+  "gateway": "https://test.asinx.io/#/pages/member/kycInfo/kycInfo"
+}
+```
 
 ### 3. User usd Recharge Info(Using digital currency)
 

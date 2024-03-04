@@ -44,4 +44,7 @@ public class AsinxPayMethods {
 
     // 商户充值记录
     public static String MERCHANT_RECHARGE = "/merchant/rechargeList";
+
+    // kyc
+    public static String  KYC_GATEWAY   = "/kyc/gateway";
 }

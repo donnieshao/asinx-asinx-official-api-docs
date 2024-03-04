@@ -341,14 +341,30 @@ public class AsinxPayApi {
         }
     }
 
-    public static void main(String[] args) {
-        getSystemClock();
+    public static void  kycGateway() {
+        KycGatewayRequest request = new KycGatewayRequest();
+        request.setDoneViewURL("https://www.asinx.io/done");
+        request.setTimeoutViewURL("https://www.asinx.io/timeout");
+        String result = postData(null, AsinxPayMethods.KYC_GATEWAY, request);
+        System.out.println("kycGateway response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("kycGateway response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("kycGateway encode result===>" + descStr);
+        }
+    }
 
-        bankcardTemplateList();
+    public static void main(String[] args) {
+//        getSystemClock();
+
+//        bankcardTemplateList();
+        kycGateway();
 
 //        userRegister("86","1221111","1221111@188.com");
 //        setUserProfession("35920");
-//        applyBankcard("35920",13,null,"KR");
+//        applyBankcard("35920",12,null,"KR");
 //        rechargeBankcard("35920",354,new BigDecimal(8),new BigDecimal(12.8));
 
 //        setBankcardPin("35910",136,"123456");
