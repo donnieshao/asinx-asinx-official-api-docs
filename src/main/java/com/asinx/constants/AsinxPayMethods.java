@@ -15,13 +15,13 @@ public class AsinxPayMethods {
     public static String SET_USER_PROFESSION = "/user/setProfession";
 
     // apply the bankcard
-    public static String APPLY_BANKCARD ="/bankcard/apply";
+    public static String APPLY_BANKCARD = "/bankcard/apply";
 
     // recharge the bankcard
-    public static String RECHARGE_BANKCARD ="/bankcard/recharge";
+    public static String RECHARGE_BANKCARD = "/bankcard/recharge";
 
     // set card atm pin
-    public static String SET_BANKCARD_PIN ="/bankcard/setPin";
+    public static String SET_BANKCARD_PIN = "/bankcard/setPin";
 
     // query bankcard transactions
     public static String QUERY_BANKCARD_TRANSACTIONS = "/bankcard/transactions";
@@ -46,5 +46,16 @@ public class AsinxPayMethods {
     public static String MERCHANT_RECHARGE = "/merchant/rechargeList";
 
     // kyc
-    public static String  KYC_GATEWAY   = "/kyc/gateway";
+    public static String KYC_GATEWAY = "/kyc/gateway";
+
+    // update bankcard status
+    public static String UPDATE_CARD_STATUS = "/bankcard/update/status";
+
+    // close bankcard
+    public static String CLOSE_CARD = "/bankcard/close";
+
+
+    public static String SET_HOLDER_INFO="/user/setHolderInfo";
+
+    public static String CARD_ORDER="/bankcard/cardOrderInfo";
 }

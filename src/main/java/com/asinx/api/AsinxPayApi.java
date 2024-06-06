@@ -20,10 +20,8 @@ public class AsinxPayApi {
 
     // test env gateway
     private static final String GATEWAY = "https://test.asinx.io/api-web";
-
     // APPID
     private static final String APP_ID = "app_447770";
-
     // SECRET
     private static String APP_SECRET = "b635dd5c87f7bf73387929203321b1e1";
 
@@ -127,6 +125,29 @@ public class AsinxPayApi {
         }
     }
 
+    public static void setHolderInfo(String uId) {
+        SetCardHolderRequest request = new SetCardHolderRequest();
+        request.setFirstName("ming");
+        request.setLastName("ming");
+        request.setPhoneNumber("123456");
+        request.setCountryCode("CN");
+        request.setResidentialAddressCity("BJ");
+        request.setResidentialAddressCountry("China");
+        request.setResidentialAddressLine1("line1");
+        request.setResidentialAddressLine2("line2");
+        request.setResidentialAddressState("BJ");
+        request.setResidentialAddressPostalCode("10010");
+        String result = postData(uId, AsinxPayMethods.SET_HOLDER_INFO, request);
+        System.out.println("setHolderInfo response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("setHolderInfo response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("setHolderInfo encode result===>" + descStr);
+        }
+    }
+
     /**
      * apply bankcard
      *
@@ -170,7 +191,10 @@ public class AsinxPayApi {
         System.out.println("rechargeBankcard response Object:  " + apiResponse);
         if (apiResponse.isSuccess()) {
             String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
-            System.out.println("rechargeBankcard encode result===>" + descStr);
+            System.out.println("success rechargeBankcard encode result===>" + descStr);
+        }else{
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("failed rechargeBankcard encode result===>" + descStr);
         }
     }
 
@@ -260,6 +284,21 @@ public class AsinxPayApi {
         }
     }
 
+    public static void queryBankcardOrder(String uId, Integer userBankcardId,String requestOrderId) {
+        QueryBankcardOrderRequest request = new QueryBankcardOrderRequest();
+        request.setUserBankcardId(userBankcardId);
+        request.setRequestOrderId(requestOrderId);
+        String result = postData(uId, AsinxPayMethods.CARD_ORDER, request);
+        System.out.println("queryBankcardOrder response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("queryBankcardOrder response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("queryBankcardOrder encode result===>" + descStr);
+        }
+    }
+
     /**
      * uer recharge info
      *
@@ -341,6 +380,37 @@ public class AsinxPayApi {
         }
     }
 
+    public static void updateBankcardStatus(String uId, Integer userBankcardId,boolean enable) {
+        UpdateBankcardStatusRequest request = new UpdateBankcardStatusRequest();
+        request.setEnable(enable);
+        request.setUserBankcardId(userBankcardId);
+
+        String result = postData(uId, AsinxPayMethods.UPDATE_CARD_STATUS, request);
+        System.out.println("updateBankcardStatus response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("updateBankcardStatus response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("updateBankcardStatus encode result===>" + descStr);
+        }
+    }
+
+    public static void closeBankcard(String uId, Integer userBankcardId) {
+        CloseBankcardRequest request = new CloseBankcardRequest();
+        request.setUserBankcardId(userBankcardId);
+
+        String result = postData(uId, AsinxPayMethods.CLOSE_CARD, request);
+        System.out.println("closeBankcard response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("closeBankcard response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("closeBankcard encode result===>" + descStr);
+        }
+    }
+
     public static void  kycGateway() {
         KycGatewayRequest request = new KycGatewayRequest();
         request.setDoneViewURL("https://www.asinx.io/done");
@@ -360,17 +430,22 @@ public class AsinxPayApi {
 //        getSystemClock();
 
 //        bankcardTemplateList();
-        kycGateway();
+//        updateBankcardStatus();
+//        setHolderInfo("35920");
+//        kycGateway();
 
-//        userRegister("86","1221111","1221111@188.com");
+//        userRegister("86","889988","122132221212211@188.com");
 //        setUserProfession("35920");
-//        applyBankcard("35920",12,null,"KR");
-//        rechargeBankcard("35920",354,new BigDecimal(8),new BigDecimal(12.8));
+//        applyBankcard("36046",24,null,"KR");
+//        rechargeBankcard("36046",19280,new BigDecimal(8),new BigDecimal(50));
+//        closeBankcard("36046",19280);
+        queryBankcardOrder("36046",19280,"CLOSE2406031639263553919");
+//        updateBankcardStatus("35987",19272,true);
 
 //        setBankcardPin("35910",136,"123456");
-//        queryBankcardTransactions("35920",347);
-//        queryBankcardBalance("35920",354);
-//        queryBankcardInfo("35920",352);
+//        queryBankcardTransactions("35974",19163);
+//        queryBankcardBalance("35987",19250);
+//        queryBankcardInfo("36046",19280);
 //        userUSDRechargeInfo("35910",new BigDecimal(2));
 //        accountAsset();
 //        accountRecharge();
