@@ -58,4 +58,8 @@ public class AsinxPayMethods {
     public static String SET_HOLDER_INFO="/user/setHolderInfo";
 
     public static String CARD_ORDER="/bankcard/cardOrderInfo";
+
+    public static String SET_USER_INFO="/user/setUserInfo";
+
+    public static String KYC_CHECK="/user/kycCheck";
 }

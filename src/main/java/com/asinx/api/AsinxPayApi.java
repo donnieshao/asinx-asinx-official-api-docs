@@ -95,6 +95,35 @@ public class AsinxPayApi {
         }
     }
 
+    public static void setUserInfo(String uId) {
+        SetUserInfoRequest request = new SetUserInfoRequest();
+        request.setFirstName("三");
+        request.setLastName("张");
+        request.setFirstNameEnglish("San");
+        request.setLastNameEnglish("Zhang");
+        request.setNationality("CN");
+        request.setDateOfBirth("1987-01-01");
+        UserInfoAddressVo addressVo = new UserInfoAddressVo();
+        addressVo.setAddressLine1("1 Primrose Street");
+        addressVo.setCity("Beijing");
+        addressVo.setCountryCode("CN");
+        request.setAddress(addressVo);
+        IdentificationVo identificationVo = new IdentificationVo();
+        identificationVo.setIdentificationNumber("E454545");
+        identificationVo.setIdentificationType("PASSPORT");
+        identificationVo.setIdentificationExpiryDate("2026-01-01");
+        request.setIdentification(identificationVo);
+        String result = postData(uId, AsinxPayMethods.SET_USER_INFO, request);
+        System.out.println("setUserInfo response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("setUserInfo response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("setUserInfo encode result===>" + descStr);
+        }
+    }
+
     /**
      * set user profession and user info
      *
@@ -411,6 +440,7 @@ public class AsinxPayApi {
         }
     }
 
+    @Deprecated
     public static void  kycGateway() {
         KycGatewayRequest request = new KycGatewayRequest();
         request.setDoneViewURL("https://www.asinx.io/done");
@@ -423,6 +453,21 @@ public class AsinxPayApi {
         if (apiResponse.isSuccess()) {
             String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
             System.out.println("kycGateway encode result===>" + descStr);
+        }
+    }
+
+    public static void  kycCheck(String uId) {
+        KycCheckRequest request = new KycCheckRequest();
+        request.setIdType("PASSPORT");
+        request.setCountry("CN");
+        String result = postData(uId, AsinxPayMethods.KYC_CHECK, request);
+        System.out.println("kycCheck response String:  " + result);
+        ApiResponse<String> apiResponse = JSON.parseObject(result, new TypeReference<ApiResponse<String>>() {
+        });
+        System.out.println("kycCheck response Object:  " + apiResponse);
+        if (apiResponse.isSuccess()) {
+            String descStr = APEncryptUtil.decode(APP_SECRET, apiResponse.getResult());
+            System.out.println("kycCheck encode result===>" + descStr);
         }
     }
 
@@ -439,8 +484,11 @@ public class AsinxPayApi {
 //        applyBankcard("36046",24,null,"KR");
 //        rechargeBankcard("36046",19280,new BigDecimal(8),new BigDecimal(50));
 //        closeBankcard("36046",19280);
-        queryBankcardOrder("36046",19280,"CLOSE2406031639263553919");
+//        queryBankcardOrder("36046",19280,"CLOSE2406031639263553919");
 //        updateBankcardStatus("35987",19272,true);
+//        setUserInfo("36046");
+        kycCheck("36046");
+
 
 //        setBankcardPin("35910",136,"123456");
 //        queryBankcardTransactions("35974",19163);
